@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Domain.Migrations
 {
-    public partial class initwithtasks : Migration
+    public partial class updateTask : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -156,6 +156,37 @@ namespace Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Attendances",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    CreatedById = table.Column<int>(nullable: true),
+                    UpdatedById = table.Column<int>(nullable: true),
+                    StartWorkDate = table.Column<DateTime>(nullable: false),
+                    EndWorkDate = table.Column<DateTime>(nullable: true),
+                    WorkedHours = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Attendances", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Attendances_AspNetUsers_CreatedById",
+                        column: x => x.CreatedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Attendances_AspNetUsers_UpdatedById",
+                        column: x => x.UpdatedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Priorities",
                 columns: table => new
                 {
@@ -178,6 +209,35 @@ namespace Domain.Migrations
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Priorities_AspNetUsers_UpdatedById",
+                        column: x => x.UpdatedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TaskStates",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    CreatedById = table.Column<int>(nullable: true),
+                    UpdatedById = table.Column<int>(nullable: true),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TaskStates", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TaskStates_AspNetUsers_CreatedById",
+                        column: x => x.CreatedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TaskStates_AspNetUsers_UpdatedById",
                         column: x => x.UpdatedById,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -227,9 +287,10 @@ namespace Domain.Migrations
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     ApprovedByMe = table.Column<bool>(nullable: false),
-                    ApprovedByAdmin = table.Column<bool>(nullable: false),
                     TypeId = table.Column<int>(nullable: false),
                     PriorityId = table.Column<int>(nullable: false),
+                    TaskStateId = table.Column<int>(nullable: false),
+                    Comment = table.Column<string>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: true),
                     EndDate = table.Column<DateTime>(nullable: true)
                 },
@@ -255,6 +316,12 @@ namespace Domain.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Tasks_TaskStates_TaskStateId",
+                        column: x => x.TaskStateId,
+                        principalTable: "TaskStates",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Tasks_TaskTypes_TypeId",
                         column: x => x.TypeId,
                         principalTable: "TaskTypes",
@@ -273,9 +340,9 @@ namespace Domain.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { 1, "8b411167-11ba-49de-b6c0-62a3e5c94e0c", "SUPERADMIN", "SUPERADMIN" },
-                    { 2, "8bfa5bda-0cd5-4864-96c6-b26139b68de1", "ADMIN", "ADMIN" },
-                    { 3, "e52cbe32-c2e6-4196-aee3-235bc831a7ee", "RESOURCE", "RESOURCE" }
+                    { 1, "0126289c-f708-4fd2-a9f6-25a56683be06", "SUPERADMIN", "SUPERADMIN" },
+                    { 2, "d3863ab1-4606-4f9e-84ac-4d8660ddf732", "ADMIN", "ADMIN" },
+                    { 3, "e49f964e-dfa4-4c8c-b996-b762763b8b8d", "RESOURCE", "RESOURCE" }
                 });
 
             migrationBuilder.InsertData(
@@ -283,9 +350,9 @@ namespace Domain.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CostPerHour", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { 1, 0, "ee8c942f-5860-4d4d-a98b-a8498903042c", 0f, "super@super.com", true, false, null, "super@super.com", null, "AQAAAAEAACcQAAAAEBaYOlhCxmhdhKyg+faPwVL0is/P9RGkv/A+AMKg9wOr/QgLqchG41egieYfN+2yUQ==", null, false, "", false, "SUPER" },
-                    { 2, 0, "51386a2b-9b3f-4bbb-8e61-082a9888e192", 0f, "admin@admin.com", true, false, null, "admin@admin.com", null, "AQAAAAEAACcQAAAAEFMSU5oX3er9z/8RzF81x244JbU5EmOrJRvl9fD4xRR9BmhWjjpXFtyXKsqIVVIooA==", null, false, "", false, "ADMIN" },
-                    { 3, 0, "2a77bfb3-5bfd-4d99-bac2-f9d54cb4f734", 0f, "resource@resource.com", true, false, null, "resource@resource.com", null, "AQAAAAEAACcQAAAAELVhdXfkqiOms5aCppGCwsoJOg9Qaer7B38ONVXBlPXLmPOyBrTZky5xxhhw6pXkOg==", null, false, "", false, "RESOURCE" }
+                    { 1, 0, "6f6ccf71-8c66-455c-bbce-69fa0d05a15c", 0f, "super@super.com", true, false, null, "super@super.com", null, "AQAAAAEAACcQAAAAEDZlQovc2aIQM8gtmw34EK6prexY84qmWtv5QuwnhQp8QwezTUlLtFv+zh0RZDgyxA==", null, false, "", false, "SUPER" },
+                    { 2, 0, "959e6085-6a8d-4600-9867-600f49e667fa", 0f, "admin@admin.com", true, false, null, "admin@admin.com", null, "AQAAAAEAACcQAAAAEMz1SsyymViVSwPs5c/m0cKaWBW0SJ+aOl6SUjKSXl5YRmkgserNB7FBiqR6wA/W0w==", null, false, "", false, "ADMIN" },
+                    { 3, 0, "cc188494-9338-4f96-b669-24dc092c7077", 0f, "resource@resource.com", true, false, null, "resource@resource.com", null, "AQAAAAEAACcQAAAAECr31uumRQ8Vv12eFiAOPlLzDOCzJemRloXAHI9UunqaSTmlzrX2lL/aCm+5i5PmRQ==", null, false, "", false, "RESOURCE" }
                 });
 
             migrationBuilder.InsertData(
@@ -293,9 +360,19 @@ namespace Domain.Migrations
                 columns: new[] { "Id", "CreatedAt", "CreatedById", "IsDeleted", "Name", "UpdatedById" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2020, 10, 4, 12, 8, 38, 983, DateTimeKind.Local).AddTicks(4241), null, false, "Low", null },
-                    { 2, new DateTime(2020, 10, 4, 12, 8, 38, 983, DateTimeKind.Local).AddTicks(4973), null, false, "Medium", null },
-                    { 3, new DateTime(2020, 10, 4, 12, 8, 38, 983, DateTimeKind.Local).AddTicks(4999), null, false, "High", null }
+                    { 1, new DateTime(2020, 10, 4, 15, 27, 45, 12, DateTimeKind.Local).AddTicks(9477), null, false, "Low", null },
+                    { 2, new DateTime(2020, 10, 4, 15, 27, 45, 13, DateTimeKind.Local).AddTicks(156), null, false, "Medium", null },
+                    { 3, new DateTime(2020, 10, 4, 15, 27, 45, 13, DateTimeKind.Local).AddTicks(186), null, false, "High", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TaskStates",
+                columns: new[] { "Id", "CreatedAt", "CreatedById", "IsDeleted", "Name", "UpdatedById" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2020, 10, 4, 15, 27, 45, 12, DateTimeKind.Local).AddTicks(7714), null, false, "Pending", null },
+                    { 2, new DateTime(2020, 10, 4, 15, 27, 45, 12, DateTimeKind.Local).AddTicks(8419), null, false, "Rejected", null },
+                    { 3, new DateTime(2020, 10, 4, 15, 27, 45, 12, DateTimeKind.Local).AddTicks(8441), null, false, "Accepted", null }
                 });
 
             migrationBuilder.InsertData(
@@ -303,8 +380,8 @@ namespace Domain.Migrations
                 columns: new[] { "Id", "CreatedAt", "CreatedById", "IsDeleted", "Name", "UpdatedById" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2020, 10, 4, 12, 8, 38, 981, DateTimeKind.Local).AddTicks(5277), null, false, "Task", null },
-                    { 2, new DateTime(2020, 10, 4, 12, 8, 38, 983, DateTimeKind.Local).AddTicks(2706), null, false, "Training", null }
+                    { 1, new DateTime(2020, 10, 4, 15, 27, 45, 11, DateTimeKind.Local).AddTicks(2810), null, false, "Task", null },
+                    { 2, new DateTime(2020, 10, 4, 15, 27, 45, 12, DateTimeKind.Local).AddTicks(6444), null, false, "Training", null }
                 });
 
             migrationBuilder.InsertData(
@@ -362,6 +439,16 @@ namespace Domain.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Attendances_CreatedById",
+                table: "Attendances",
+                column: "CreatedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Attendances_UpdatedById",
+                table: "Attendances",
+                column: "UpdatedById");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Priorities_CreatedById",
                 table: "Priorities",
                 column: "CreatedById");
@@ -387,6 +474,11 @@ namespace Domain.Migrations
                 column: "ResourceId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Tasks_TaskStateId",
+                table: "Tasks",
+                column: "TaskStateId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tasks_TypeId",
                 table: "Tasks",
                 column: "TypeId");
@@ -394,6 +486,16 @@ namespace Domain.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Tasks_UpdatedById",
                 table: "Tasks",
+                column: "UpdatedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TaskStates_CreatedById",
+                table: "TaskStates",
+                column: "CreatedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TaskStates_UpdatedById",
+                table: "TaskStates",
                 column: "UpdatedById");
 
             migrationBuilder.CreateIndex(
@@ -425,6 +527,9 @@ namespace Domain.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Attendances");
+
+            migrationBuilder.DropTable(
                 name: "Tasks");
 
             migrationBuilder.DropTable(
@@ -432,6 +537,9 @@ namespace Domain.Migrations
 
             migrationBuilder.DropTable(
                 name: "Priorities");
+
+            migrationBuilder.DropTable(
+                name: "TaskStates");
 
             migrationBuilder.DropTable(
                 name: "TaskTypes");

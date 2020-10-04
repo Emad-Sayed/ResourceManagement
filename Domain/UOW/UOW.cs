@@ -18,9 +18,11 @@ namespace Domain
             context = _context;
             Users = new UserRepository(_context);
             Tasks = new TaskRepository(_context);
+            Attendances = new AttendanceRepository(_context);
         }
         public IUserRepository Users { get; }
         public ITaskRepository Tasks { get; }
+        public IAttendanceRepository Attendances { get; }
         public int Compelete()
         {
             return context.SaveChanges();

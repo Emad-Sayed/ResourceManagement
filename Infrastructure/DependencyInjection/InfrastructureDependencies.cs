@@ -17,6 +17,7 @@ namespace Infrastructure.DependencyInjection
             services.AddTransient<IResponse, Response>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ITaskService, TaskService>();
+            services.AddTransient<IAttendanceService, AttendanceService>();
         }
     }
 }

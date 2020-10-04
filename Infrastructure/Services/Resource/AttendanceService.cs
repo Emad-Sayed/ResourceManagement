@@ -74,7 +74,8 @@ namespace Infrastructure.Services.Resource
                 response.status = false;
                 return response;
             }
-            response.data = selectedAttendance;
+            TimeSpan Difference = DateTime.Now - selectedAttendance.StartWorkDate;
+            response.data = new {Start=selectedAttendance.StartWorkDate,Hours=Difference.Hours,Minues=Difference.Minutes};
             return response;
         }
 

@@ -61,5 +61,14 @@ namespace Proemcs.RM.API.Controllers.Resource
                 return BadRequest();
             return Ok(Rs);
         }
+        [HttpGet("GetMyTasks")]
+        public ActionResult GetMyTasks([FromQuery] TaskSearchModel search)
+        {
+            search.ResourcesIds = new List<int> { User.GetUserId() };
+            var Rs = service.GetAll(search);
+            if (Rs.status == false)
+                return BadRequest();
+            return Ok(Rs);
+        }
     }
 }

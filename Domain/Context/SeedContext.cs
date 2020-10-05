@@ -93,7 +93,22 @@ namespace Domain.Context
                 Id = 2,
                 Name = "Training"
             });
-
+            builder.Entity<TaskState>().HasData(
+            new TaskState
+            {
+                Id = 1,
+                Name = "Pending"
+            },
+            new TaskState
+            {
+                Id = 2,
+                Name = "Rejected"
+            },
+            new TaskState
+            {
+                Id = 3,
+                Name = "Accepted"
+            });
             builder.Entity<Priority>().HasData(
             new Priority
             {

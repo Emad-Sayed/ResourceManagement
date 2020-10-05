@@ -10,5 +10,7 @@ namespace Core.Infrastructure.Service.Resource
     {
         IResponse ApproveMyTask(List<int> taskIds, int resourseId);
         IResponse AdminApproveTask(List<int> taskIds);
+        IResponse AdminRejectTask(TaskRejectionModel reject);
+
     }
 }

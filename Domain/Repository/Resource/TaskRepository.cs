@@ -19,13 +19,15 @@ namespace Domain.Repository.Resource
 
         public (IEnumerable<TaskViewModel>, int) TasksFilter(TaskSearchModel search)
         {
-            var query = Context.Tasks.Include(t => t.Type).Include(t => t.Resource).Where(t =>
+            var query = Context.Tasks.Include(t => t.Type).Where(t =>
                 (String.IsNullOrEmpty(search.keyWord) || t.Name.Contains(search.keyWord) || t.Description.Contains(search.keyWord)) &&
                 (search.TasksIds == null || search.TasksIds.Count == 0 || search.TasksIds.Contains(t.Id)) &&
                 (search.TypeIds == null || search.TypeIds.Count == 0 || search.TypeIds.Contains(t.TypeId)) &&
                 (search.ResourcesIds == null || search.ResourcesIds.Count == 0 || search.ResourcesIds.Contains(t.ResourceId)) &&
-                (search.StartDate == null || t.CreatedAt > search.StartDate) &&
-                (search.EndDate == null || t.CreatedAt < search.EndDate))
+                (search.StateIds == null || search.StateIds.Count == 0 || search.StateIds.Contains(t.TaskStateId)) &&
+                (search.SpecificDate == null || (t.StartDate.Value.Date <= search.SpecificDate.Value.Date && search.SpecificDate.Value.Date < t.EndDate.Value.Date)) &&
+                (search.StartDate == null || t.StartDate.Value > search.StartDate) &&
+                (search.EndDate == null || t.EndDate.Value < search.EndDate))
                 .Select(t => new TaskViewModel
                 {
                     TaskId = t.Id,
@@ -33,10 +35,16 @@ namespace Domain.Repository.Resource
                     Description = t.Description,
                     ResourceId = t.ResourceId,
                     ResourceName = t.Resource.UserName,
+                    ApprovedByResource = t.ApprovedByMe,
+                    StartDate = t.StartDate.Value,
+                    EndDate = t.EndDate.Value,
                     TypeId = t.TypeId,
                     TypeName = t.Type.Name,
                     PrioityId = t.PriorityId,
-                    PrioityName = t.Priority.Name
+                    PrioityName = t.Priority.Name,
+                    TaskStateId = t.TaskStateId,
+                    TaskStateName = t.TaskState.Name,
+                    Comment = t.Comment,
                 });
             var count = query.Count();
             var data = query.OrderBy(t => t.TaskId).Skip((search.pageNumber - 1) * search.pageSize).Take(search.pageSize);

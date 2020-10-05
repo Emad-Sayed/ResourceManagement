@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Domain.Mapper;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,7 +30,8 @@ namespace Proemcs.RM.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.InjectAllDependecies(Configuration);
-            services.AddControllers();
+            services.AddControllers(config => {
+            }).AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<MappingProfile>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

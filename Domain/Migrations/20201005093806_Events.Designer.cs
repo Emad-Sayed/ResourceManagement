@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20201004100839_init with tasks")]
-    partial class initwithtasks
+    [Migration("20201005093806_Events")]
+    partial class Events
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -95,13 +95,13 @@ namespace Domain.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ee8c942f-5860-4d4d-a98b-a8498903042c",
+                            ConcurrencyStamp = "d6740eee-f62f-448c-9a46-b79c415d1cb7",
                             CostPerHour = 0f,
                             Email = "super@super.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "super@super.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBaYOlhCxmhdhKyg+faPwVL0is/P9RGkv/A+AMKg9wOr/QgLqchG41egieYfN+2yUQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMw2ovZ5rr65W+cCSBS2IY/tsrBBf4FqGpjxn3l6jVUu+a3OwhrH4NCgkWlFAFJpjg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -111,13 +111,13 @@ namespace Domain.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "51386a2b-9b3f-4bbb-8e61-082a9888e192",
+                            ConcurrencyStamp = "09ff5a20-98e0-4816-8462-6d80da272fb8",
                             CostPerHour = 0f,
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@admin.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFMSU5oX3er9z/8RzF81x244JbU5EmOrJRvl9fD4xRR9BmhWjjpXFtyXKsqIVVIooA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENhi/Izzd/7kR/IGXR/gudD5NXDb0eUq1qLl1pOBURbwxiZ322T7JqaUt2v+sdc5HA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -127,13 +127,13 @@ namespace Domain.Migrations
                         {
                             Id = 3,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2a77bfb3-5bfd-4d99-bac2-f9d54cb4f734",
+                            ConcurrencyStamp = "acb88640-bee3-4775-964e-467adb5cbed1",
                             CostPerHour = 0f,
                             Email = "resource@resource.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "resource@resource.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAELVhdXfkqiOms5aCppGCwsoJOg9Qaer7B38ONVXBlPXLmPOyBrTZky5xxhhw6pXkOg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOVFfpTNMDObz/m6qgCNWGAUmj9U07y5lDSNHZMZFS2dczvKH6JrqwG9uem0eCeYMQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -175,23 +175,77 @@ namespace Domain.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2020, 10, 4, 12, 8, 38, 983, DateTimeKind.Local).AddTicks(4241),
+                            CreatedAt = new DateTime(2020, 10, 5, 11, 38, 5, 966, DateTimeKind.Local).AddTicks(8940),
                             IsDeleted = false,
                             Name = "Low"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2020, 10, 4, 12, 8, 38, 983, DateTimeKind.Local).AddTicks(4973),
+                            CreatedAt = new DateTime(2020, 10, 5, 11, 38, 5, 966, DateTimeKind.Local).AddTicks(9866),
                             IsDeleted = false,
                             Name = "Medium"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2020, 10, 4, 12, 8, 38, 983, DateTimeKind.Local).AddTicks(4999),
+                            CreatedAt = new DateTime(2020, 10, 5, 11, 38, 5, 966, DateTimeKind.Local).AddTicks(9900),
                             IsDeleted = false,
                             Name = "High"
+                        });
+                });
+
+            modelBuilder.Entity("Core.Domain.Entity.Lookups.TaskState", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UpdatedById")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("UpdatedById");
+
+                    b.ToTable("TaskStates");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2020, 10, 5, 11, 38, 5, 966, DateTimeKind.Local).AddTicks(6663),
+                            IsDeleted = false,
+                            Name = "Pending"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2020, 10, 5, 11, 38, 5, 966, DateTimeKind.Local).AddTicks(7568),
+                            IsDeleted = false,
+                            Name = "Rejected"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(2020, 10, 5, 11, 38, 5, 966, DateTimeKind.Local).AddTicks(7598),
+                            IsDeleted = false,
+                            Name = "Accepted"
                         });
                 });
 
@@ -229,17 +283,94 @@ namespace Domain.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2020, 10, 4, 12, 8, 38, 981, DateTimeKind.Local).AddTicks(5277),
+                            CreatedAt = new DateTime(2020, 10, 5, 11, 38, 5, 964, DateTimeKind.Local).AddTicks(7730),
                             IsDeleted = false,
                             Name = "Task"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2020, 10, 4, 12, 8, 38, 983, DateTimeKind.Local).AddTicks(2706),
+                            CreatedAt = new DateTime(2020, 10, 5, 11, 38, 5, 966, DateTimeKind.Local).AddTicks(4818),
                             IsDeleted = false,
                             Name = "Training"
                         });
+                });
+
+            modelBuilder.Entity("Core.Domain.Entity.Resource.Attendance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("EndWorkDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("StartWorkDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("UpdatedById")
+                        .HasColumnType("int");
+
+                    b.Property<double>("WorkedHours")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("UpdatedById");
+
+                    b.ToTable("Attendances");
+                });
+
+            modelBuilder.Entity("Core.Domain.Entity.Resource.ResourceEvent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan>("End")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("From")
+                        .HasColumnType("time");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UpdatedById")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("UpdatedById");
+
+                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("Core.Domain.Entity.Resource.ResourceTask", b =>
@@ -249,11 +380,11 @@ namespace Domain.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("ApprovedByAdmin")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("ApprovedByMe")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -282,6 +413,9 @@ namespace Domain.Migrations
                     b.Property<DateTime?>("StartDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("TaskStateId")
+                        .HasColumnType("int");
+
                     b.Property<int>("TypeId")
                         .HasColumnType("int");
 
@@ -295,6 +429,8 @@ namespace Domain.Migrations
                     b.HasIndex("PriorityId");
 
                     b.HasIndex("ResourceId");
+
+                    b.HasIndex("TaskStateId");
 
                     b.HasIndex("TypeId");
 
@@ -335,21 +471,21 @@ namespace Domain.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "8b411167-11ba-49de-b6c0-62a3e5c94e0c",
+                            ConcurrencyStamp = "75463435-05c9-49eb-ab6a-c10466ba7afe",
                             Name = "SUPERADMIN",
                             NormalizedName = "SUPERADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "8bfa5bda-0cd5-4864-96c6-b26139b68de1",
+                            ConcurrencyStamp = "e6ca8024-e50f-48b7-8a19-4e39a0f31355",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "e52cbe32-c2e6-4196-aee3-235bc831a7ee",
+                            ConcurrencyStamp = "c8869603-e26c-4cc5-a2fe-a7f1b5425be0",
                             Name = "RESOURCE",
                             NormalizedName = "RESOURCE"
                         });
@@ -484,7 +620,40 @@ namespace Domain.Migrations
                         .HasForeignKey("UpdatedById");
                 });
 
+            modelBuilder.Entity("Core.Domain.Entity.Lookups.TaskState", b =>
+                {
+                    b.HasOne("Core.Domain.Entity.Access.AppUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
+
+                    b.HasOne("Core.Domain.Entity.Access.AppUser", "UpdatedBy")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById");
+                });
+
             modelBuilder.Entity("Core.Domain.Entity.Lookups.TaskType", b =>
+                {
+                    b.HasOne("Core.Domain.Entity.Access.AppUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
+
+                    b.HasOne("Core.Domain.Entity.Access.AppUser", "UpdatedBy")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById");
+                });
+
+            modelBuilder.Entity("Core.Domain.Entity.Resource.Attendance", b =>
+                {
+                    b.HasOne("Core.Domain.Entity.Access.AppUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
+
+                    b.HasOne("Core.Domain.Entity.Access.AppUser", "UpdatedBy")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById");
+                });
+
+            modelBuilder.Entity("Core.Domain.Entity.Resource.ResourceEvent", b =>
                 {
                     b.HasOne("Core.Domain.Entity.Access.AppUser", "CreatedBy")
                         .WithMany()
@@ -510,6 +679,12 @@ namespace Domain.Migrations
                     b.HasOne("Core.Domain.Entity.Access.AppUser", "Resource")
                         .WithMany()
                         .HasForeignKey("ResourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Domain.Entity.Lookups.TaskState", "TaskState")
+                        .WithMany()
+                        .HasForeignKey("TaskStateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

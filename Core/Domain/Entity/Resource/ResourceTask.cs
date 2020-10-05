@@ -13,11 +13,13 @@ namespace Core.Domain.Entity.Resource
         public string Name { get; set; }
         public string Description { get; set; }
         public bool ApprovedByMe { get; set; } = false;
-        public bool ApprovedByAdmin { get; set; } = false;
         public int TypeId { get; set; }
         public TaskType Type { get; set; }
         public int PriorityId { get; set; }
         public Priority Priority { get; set; }
+        public int TaskStateId { get; set; }
+        public TaskState TaskState { get; set; }
+        public string Comment { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
     }

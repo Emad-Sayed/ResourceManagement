@@ -29,13 +29,33 @@ namespace Infrastructure.Services.Resource
                 var selectedTask = UOW.Tasks.SingleOrDefault(t => t.Id == taskId && t.ApprovedByMe == true);
                 if (selectedTask != null)
                 {
-                    selectedTask.ApprovedByAdmin = true;
+                    selectedTask.TaskStateId = 3;
                 }
             }
 
             UOW.Compelete();
             return response;
         }
+
+        public IResponse AdminRejectTask(TaskRejectionModel reject)
+        {
+            var selectedTask = UOW.Tasks.SingleOrDefault(t => t.Id == reject.TaskId && t.ApprovedByMe == true);
+            if (selectedTask != null)
+            {
+                selectedTask.TaskStateId = 2;
+                selectedTask.ApprovedByMe = false;
+                selectedTask.StartDate = reject.NewStart ?? selectedTask.StartDate;
+                selectedTask.EndDate = reject.NewEnd ?? selectedTask.EndDate;
+                selectedTask.Comment = reject.Comment;
+                UOW.Compelete();
+            }
+            else
+            {
+                response.status = false;
+            }
+            return response;
+        }
+
 
         public IResponse ApproveMyTask(List<int> taskIds, int resourseId)
         {
@@ -60,15 +80,11 @@ namespace Infrastructure.Services.Resource
                 return response;
             }
             var newTask = mapper.Map<ResourceTask>(model);
+            newTask.TaskStateId = 1;
             newTask.CreatedById = LoggedUser;
             UOW.Tasks.Add(newTask);
             UOW.Compelete();
             return response;
-        }
-
-        public IResponse CreateConfirmation(TaskCreateModel model)
-        {
-            throw new NotImplementedException();
         }
 
         public IResponse Delete(int id)

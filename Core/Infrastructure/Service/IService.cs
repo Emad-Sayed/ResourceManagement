@@ -9,7 +9,6 @@ namespace Core.Infrastructure.Service
     {
         IResponse GetAll(Search search);
         IResponse GetById(int id);
-        IResponse CreateConfirmation(CreateModel model);
         IResponse Create(CreateModel model, int LoggedUser);
         IResponse Delete(int id);
     }

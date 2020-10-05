@@ -4,14 +4,16 @@ using Domain.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Domain.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201004132745_update Task")]
+    partial class updateTask
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,13 +95,13 @@ namespace Domain.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3676648f-74ea-4120-8f1d-af8b5b3dbac6",
+                            ConcurrencyStamp = "6f6ccf71-8c66-455c-bbce-69fa0d05a15c",
                             CostPerHour = 0f,
                             Email = "super@super.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "super@super.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGHFqFgnyvDNOjodkmXIjOLjneNKrAn61kfNtdOtegE1BE3LQVeQgOpR/PiqADNozw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDZlQovc2aIQM8gtmw34EK6prexY84qmWtv5QuwnhQp8QwezTUlLtFv+zh0RZDgyxA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -109,13 +111,13 @@ namespace Domain.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c1427b1b-9e92-4a06-b6d9-022ddf8ea582",
+                            ConcurrencyStamp = "959e6085-6a8d-4600-9867-600f49e667fa",
                             CostPerHour = 0f,
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@admin.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPHjYYvjI7CtNRfP2WQPfqdJoLan7XKwT6/BKQyW2Onx1uy3NHJOcxsDFyp6+JuUpw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMz1SsyymViVSwPs5c/m0cKaWBW0SJ+aOl6SUjKSXl5YRmkgserNB7FBiqR6wA/W0w==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -125,13 +127,13 @@ namespace Domain.Migrations
                         {
                             Id = 3,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b28075d4-6eb0-4014-b5fc-ec0dc8da90c9",
+                            ConcurrencyStamp = "cc188494-9338-4f96-b669-24dc092c7077",
                             CostPerHour = 0f,
                             Email = "resource@resource.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "resource@resource.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGmzRTHXTbQXTdqeJallBabLRRp0xtqhD1j+zc9790/IQOjv4LkDT/+sOctqDiASRw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECr31uumRQ8Vv12eFiAOPlLzDOCzJemRloXAHI9UunqaSTmlzrX2lL/aCm+5i5PmRQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -173,21 +175,21 @@ namespace Domain.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2020, 10, 5, 12, 41, 23, 310, DateTimeKind.Local).AddTicks(1515),
+                            CreatedAt = new DateTime(2020, 10, 4, 15, 27, 45, 12, DateTimeKind.Local).AddTicks(9477),
                             IsDeleted = false,
                             Name = "Low"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2020, 10, 5, 12, 41, 23, 310, DateTimeKind.Local).AddTicks(2292),
+                            CreatedAt = new DateTime(2020, 10, 4, 15, 27, 45, 13, DateTimeKind.Local).AddTicks(156),
                             IsDeleted = false,
                             Name = "Medium"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2020, 10, 5, 12, 41, 23, 310, DateTimeKind.Local).AddTicks(2323),
+                            CreatedAt = new DateTime(2020, 10, 4, 15, 27, 45, 13, DateTimeKind.Local).AddTicks(186),
                             IsDeleted = false,
                             Name = "High"
                         });
@@ -227,21 +229,21 @@ namespace Domain.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2020, 10, 5, 12, 41, 23, 309, DateTimeKind.Local).AddTicks(9443),
+                            CreatedAt = new DateTime(2020, 10, 4, 15, 27, 45, 12, DateTimeKind.Local).AddTicks(7714),
                             IsDeleted = false,
                             Name = "Pending"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2020, 10, 5, 12, 41, 23, 310, DateTimeKind.Local).AddTicks(273),
+                            CreatedAt = new DateTime(2020, 10, 4, 15, 27, 45, 12, DateTimeKind.Local).AddTicks(8419),
                             IsDeleted = false,
                             Name = "Rejected"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2020, 10, 5, 12, 41, 23, 310, DateTimeKind.Local).AddTicks(302),
+                            CreatedAt = new DateTime(2020, 10, 4, 15, 27, 45, 12, DateTimeKind.Local).AddTicks(8441),
                             IsDeleted = false,
                             Name = "Accepted"
                         });
@@ -281,14 +283,14 @@ namespace Domain.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2020, 10, 5, 12, 41, 23, 308, DateTimeKind.Local).AddTicks(2805),
+                            CreatedAt = new DateTime(2020, 10, 4, 15, 27, 45, 11, DateTimeKind.Local).AddTicks(2810),
                             IsDeleted = false,
                             Name = "Task"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2020, 10, 5, 12, 41, 23, 309, DateTimeKind.Local).AddTicks(7801),
+                            CreatedAt = new DateTime(2020, 10, 4, 15, 27, 45, 12, DateTimeKind.Local).AddTicks(6444),
                             IsDeleted = false,
                             Name = "Training"
                         });
@@ -329,49 +331,6 @@ namespace Domain.Migrations
                     b.HasIndex("UpdatedById");
 
                     b.ToTable("Attendances");
-                });
-
-            modelBuilder.Entity("Core.Domain.Entity.Resource.ResourceEvent", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("CreatedById")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Day")
-                        .HasColumnType("datetime2");
-
-                    b.Property<TimeSpan>("End")
-                        .HasColumnType("time");
-
-                    b.Property<TimeSpan>("From")
-                        .HasColumnType("time");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UpdatedById")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("UpdatedById");
-
-                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("Core.Domain.Entity.Resource.ResourceTask", b =>
@@ -472,21 +431,21 @@ namespace Domain.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "c73c489a-f566-483d-a749-8b3afa84477e",
+                            ConcurrencyStamp = "0126289c-f708-4fd2-a9f6-25a56683be06",
                             Name = "SUPERADMIN",
                             NormalizedName = "SUPERADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "504f5099-8f01-49be-8678-5757d5ae89dd",
+                            ConcurrencyStamp = "d3863ab1-4606-4f9e-84ac-4d8660ddf732",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "345cfa3e-7928-4087-9904-8eff23c2eb4a",
+                            ConcurrencyStamp = "e49f964e-dfa4-4c8c-b996-b762763b8b8d",
                             Name = "RESOURCE",
                             NormalizedName = "RESOURCE"
                         });
@@ -644,17 +603,6 @@ namespace Domain.Migrations
                 });
 
             modelBuilder.Entity("Core.Domain.Entity.Resource.Attendance", b =>
-                {
-                    b.HasOne("Core.Domain.Entity.Access.AppUser", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById");
-
-                    b.HasOne("Core.Domain.Entity.Access.AppUser", "UpdatedBy")
-                        .WithMany()
-                        .HasForeignKey("UpdatedById");
-                });
-
-            modelBuilder.Entity("Core.Domain.Entity.Resource.ResourceEvent", b =>
                 {
                     b.HasOne("Core.Domain.Entity.Access.AppUser", "CreatedBy")
                         .WithMany()

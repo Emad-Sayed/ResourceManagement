@@ -24,6 +24,7 @@ namespace Domain.Context
         public DbSet<TaskState> TaskStates { get; set; }
         public DbSet<ResourceTask> Tasks { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
+        public DbSet<ResourceEvent> Events { get; set; }
 
     }
 }

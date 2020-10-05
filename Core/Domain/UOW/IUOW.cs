@@ -1,4 +1,5 @@
-﻿using Core.Domain.Repository;
+﻿using Core.Domain.Entity.Resource;
+using Core.Domain.Repository;
 using Core.Domain.Repository.Resource;
 using Core.Domain.Repository.User;
 using System;
@@ -12,6 +13,7 @@ namespace Core.Domain.UOW
         IUserRepository Users { get; }
         ITaskRepository Tasks { get; }
         IAttendanceRepository Attendances { get; }
+        IRepository<ResourceEvent> Events { get; }
         int Compelete();
     }
 }

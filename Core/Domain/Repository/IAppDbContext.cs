@@ -13,6 +13,7 @@ namespace Core.Domain.Repository
         DbSet<TaskState> TaskStates { get; set; }
         DbSet<TaskType> TaskTypes { get; set; }
         DbSet<ResourceTask> Tasks { get; set; }
+        DbSet<ResourceEvent> Events { get; set; }
         DbSet<Attendance> Attendances { get; set; }
     }
 }

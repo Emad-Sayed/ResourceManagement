@@ -44,8 +44,8 @@ namespace Infrastructure.Services.Resource
             {
                 selectedTask.TaskStateId = 2;
                 selectedTask.ApprovedByMe = false;
-                selectedTask.StartDate = reject.NewStart ?? selectedTask.StartDate;
-                selectedTask.EndDate = reject.NewEnd ?? selectedTask.EndDate;
+                selectedTask.StartDate = reject.NewStart;
+                selectedTask.EndDate = reject.NewEnd;
                 selectedTask.Comment = reject.Comment;
                 UOW.Compelete();
             }
@@ -55,8 +55,25 @@ namespace Infrastructure.Services.Resource
             }
             return response;
         }
-
-
+        public IResponse AdminReasignTask(AdminReasignTaskModel reasign)
+        {
+            var selectedTask = UOW.Tasks.SingleOrDefault(t => t.Id == reasign.TaskId);
+            if (selectedTask != null)
+            {
+                selectedTask.TaskStateId = 1;
+                selectedTask.ResourceId = reasign.ResourceId;
+                selectedTask.ApprovedByMe = false;
+                selectedTask.StartDate = reasign.NewStart;
+                selectedTask.EndDate = reasign.NewEnd;
+                selectedTask.Comment = reasign.Comment;
+                UOW.Compelete();
+            }
+            else
+            {
+                response.status = false;
+            }
+            return response;
+        }
         public IResponse ApproveMyTask(List<int> taskIds, int resourseId)
         {
             foreach (var taskId in taskIds)

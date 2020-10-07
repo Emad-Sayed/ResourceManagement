@@ -10,5 +10,6 @@ namespace Core.Domain.ViewModel.Resource
         public DateTime? startDate { get; set; }
         public DateTime? endDate { get; set; }
         public List<int> ResourceIds { get; set; }
+        public bool Approved { get; set; } = false;
     }
 }

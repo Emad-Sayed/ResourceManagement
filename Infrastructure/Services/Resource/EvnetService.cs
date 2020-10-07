@@ -7,6 +7,7 @@ using Core.Infrastructure.Service;
 using Core.Infrastructure.Service.Resource;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Infrastructure.Services.Resource
@@ -52,8 +53,8 @@ namespace Infrastructure.Services.Resource
 
         public IResponse GetByDate(DateTime date, int VisitorId)
         {
-            var data = UOW.Events.SingleOrDefault(e => e.Day.Date == date.Date);
-            if (data == null)
+            var data = UOW.Events.Find(e => e.Day.Date == date.Date);
+            if (data.ToList().Count == 0)
                 response.status = false;
             else
                 response.data = data;

@@ -45,5 +45,17 @@ namespace Proemcs.RM.API.Controllers.Resource
             var Rs = service.GetAll(search);
             return Ok(Rs);
         }
+        [HttpGet("GetGrouped")]
+        public ActionResult GetGrouped([FromQuery] AttendanceSearchModel search)
+        {
+            var Rs = service.GetGrouped(search);
+            return Ok(Rs);
+        }
+        [HttpPost("GetAdminApprove")]
+        public ActionResult GetAdminApprove(List<int> ids)
+        {
+            var Rs = service.GetAdminApprove(ids);
+            return Ok(Rs);
+        }
     }
 }

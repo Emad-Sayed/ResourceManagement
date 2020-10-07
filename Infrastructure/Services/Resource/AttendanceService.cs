@@ -32,6 +32,11 @@ namespace Infrastructure.Services.Resource
             response.data = result;
             return response;
         }
+        public IResponse GetGrouped(AttendanceSearchModel search)
+        {
+            response.data = UOW.Attendances.AttendanceDailyGroup(search);
+            return response;
+        }
         public IResponse StartWork(int resourceId)
         {
             var selectedAttendance = UOW.Attendances.SingleOrDefault(r => r.CreatedById == resourceId && r.EndWorkDate == null);
@@ -50,7 +55,6 @@ namespace Infrastructure.Services.Resource
             }
             return response;
         }
-
         public IResponse EndWork(int resourceId)
         {
             var selectedAttendance = UOW.Attendances.SingleOrDefault(r => r.CreatedById == resourceId && r.EndWorkDate == null);
@@ -76,6 +80,16 @@ namespace Infrastructure.Services.Resource
             }
             TimeSpan Difference = DateTime.Now - selectedAttendance.StartWorkDate;
             response.data = new {Start=selectedAttendance.StartWorkDate,Hours=Difference.Hours,Minues=Difference.Minutes};
+            return response;
+        }
+        public IResponse GetAdminApprove(List<int> ids)
+        {
+            foreach(int id in ids)
+            {
+                var selectedAttendance = UOW.Attendances.SingleOrDefault(a => a.Id == id);
+                selectedAttendance.Approved = true;
+            }
+            UOW.Compelete();
             return response;
         }
 

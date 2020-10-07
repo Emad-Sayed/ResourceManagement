@@ -8,5 +8,6 @@ namespace Core.Domain.Entity.Access
     public class AppUser: IdentityUser<int>
     {
         public float CostPerHour { get; set; }
+        public string JobTitle { get; set; }
     }
 }

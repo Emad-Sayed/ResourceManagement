@@ -12,6 +12,8 @@ namespace Core.Infrastructure.Service.Resource
         IResponse EndWork(int resourceId);
         IResponse GetToDayAttendance(int resourceId);
         IResponse GetAll(AttendanceSearchModel search);
+        IResponse GetGrouped(AttendanceSearchModel search);
+        IResponse GetAdminApprove(List<int> ids);
     }
 }
 

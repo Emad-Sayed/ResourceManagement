@@ -53,6 +53,14 @@ namespace Proemcs.RM.API.Controllers.Resource
                 return BadRequest(Rs);
             return Ok(Rs);
         }
+        [HttpPost("AdminReasignTask")]
+        public ActionResult AdminReasignTask([FromBody] AdminReasignTaskModel reasign)
+        {
+            var Rs = service.AdminReasignTask(reasign);
+            if (Rs.status == false)
+                return BadRequest(Rs);
+            return Ok(Rs);
+        }
         [HttpGet]
         public ActionResult GetTasks([FromQuery] TaskSearchModel search)
         {

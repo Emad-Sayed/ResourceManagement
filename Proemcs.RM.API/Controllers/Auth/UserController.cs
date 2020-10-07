@@ -6,6 +6,7 @@ using Core.Domain.ViewModel.Access;
 using Core.Infrastructure.Service.Users;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Proemcs.RM.API.Helper;
 
 namespace Proemcs.RM.API.Controllers.Auth
 {
@@ -42,11 +43,27 @@ namespace Proemcs.RM.API.Controllers.Auth
                 return Ok(response);
             return BadRequest(response);
         }
+        [HttpPut]
+        public async Task<ActionResult> Update(UserUpdateModel user)
+        {
+            var response = await service.Update(user);
+            if (response.status == true)
+                return Ok(response);
+            return NotFound(response);
+        }
         [HttpGet("UserFilter")]
         public ActionResult UserFilter([FromQuery]UserSeachModel search)
         {
             var response = service.GetUsers(search);
             return Ok(response);
+        }
+        [HttpPut("ChangePassword")]
+        public async Task<ActionResult> ChangePassword(UserChangePasswordModel changePassword)
+        {
+            var response = await service.ChangePassword(changePassword,User.GetUserId());
+            if (response.status)
+                return Ok(response);
+            return BadRequest(response);
         }
     }
 }

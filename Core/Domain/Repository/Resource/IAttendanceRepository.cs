@@ -9,7 +9,7 @@ namespace Core.Domain.Repository.Resource
     public interface IAttendanceRepository : IRepository<Attendance>
     {
         (IEnumerable<AttendanceViewModel>, int) AttendanceFilter(AttendanceSearchModel search);
-        IEnumerable<AttendanceGroupViewModel> AttendanceDailyGroup(AttendanceSearchModel search);
+        IEnumerable<AttendanceGroupViewModel> AttendanceMonthlyGroup(AttendanceSearchModel search);
     }
 }
 

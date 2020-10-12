@@ -69,6 +69,12 @@ namespace Proemcs.RM.API.Controllers.Resource
                 return BadRequest();
             return Ok(Rs);
         }
+        [HttpGet("GetGrouped")]
+        public ActionResult GetGrouped([FromQuery] TaskSearchModel search)
+        {
+            var Rs = service.GetGrouped(search);
+            return Ok(Rs);
+        }
         [HttpGet("GetMyTasks")]
         public ActionResult GetMyTasks([FromQuery] TaskSearchModel search)
         {

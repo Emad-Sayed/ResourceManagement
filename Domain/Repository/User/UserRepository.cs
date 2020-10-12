@@ -31,6 +31,7 @@ namespace Domain.Repository.User
                             Id = user.Id,
                             UserName = user.UserName,
                             Email = user.Email,
+                            JobTitle = user.JobTitle,
                             CostPerHour = user.CostPerHour,
                             Role = role.Name,
                         };

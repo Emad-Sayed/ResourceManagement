@@ -125,6 +125,12 @@ namespace Infrastructure.Services.Resource
         {
             throw new NotImplementedException();
         }
+        public IResponse GetGrouped(TaskSearchModel search)
+        {
+            response.data = UOW.Tasks.TasksMonthlyGroup(search);
+            return response;
+        }
+
     }
 
 }

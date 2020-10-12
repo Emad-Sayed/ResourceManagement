@@ -40,7 +40,7 @@ namespace Domain.Repository.Resource
             var data = query.OrderBy(t => t.Id).Skip((search.pageNumber - 1) * search.pageSize).Take(search.pageSize);
             return (data, count);
         }
-        public IEnumerable<AttendanceGroupViewModel> AttendanceDailyGroup(AttendanceSearchModel search)
+        public IEnumerable<AttendanceGroupViewModel> AttendanceMonthlyGroup(AttendanceSearchModel search)
         {
             var query = Context.Attendances.Include(t => t.CreatedBy).Where(t =>
                 (String.IsNullOrEmpty(search.keyWord) || t.CreatedBy.UserName.Contains(search.keyWord) || t.CreatedBy.Email.Contains(search.keyWord)) &&
@@ -64,6 +64,7 @@ namespace Domain.Repository.Resource
                 Start = s.First().Start.Date,
                 Month = s.First().Start.Month,
                 Year = s.First().Start.Year,
+                TotalAttendances = s.Count(),
                 WorkedHours = s.Sum(wh => wh.WorkedHours),
                 NetPayment = s.Sum(wh => wh.NetPayment),
             });

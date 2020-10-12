@@ -57,5 +57,14 @@ namespace Proemcs.RM.API.Controllers.Resource
             var Rs = service.GetAdminApprove(ids);
             return Ok(Rs);
         }
+        [HttpGet("GetMyAttendance")]
+        public ActionResult GetMyAttendance([FromQuery] AttendanceSearchModel search)
+        {
+            search.ResourceIds = new List<int> { User.GetUserId() };
+            var Rs = service.GetAll(search);
+            if (Rs.status == false)
+                return BadRequest();
+            return Ok(Rs);
+        }
     }
 }

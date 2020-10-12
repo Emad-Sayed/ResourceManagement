@@ -34,7 +34,7 @@ namespace Infrastructure.Services.Resource
         }
         public IResponse GetGrouped(AttendanceSearchModel search)
         {
-            response.data = UOW.Attendances.AttendanceDailyGroup(search);
+            response.data = UOW.Attendances.AttendanceMonthlyGroup(search);
             return response;
         }
         public IResponse StartWork(int resourceId)

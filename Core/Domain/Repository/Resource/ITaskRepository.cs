@@ -9,5 +9,6 @@ namespace Core.Domain.Repository.Resource
     public interface ITaskRepository : IRepository<ResourceTask>
     {
         (IEnumerable<TaskViewModel>, int) TasksFilter(TaskSearchModel search);
+        IEnumerable<TaskGroupViewModel> TasksMonthlyGroup(TaskSearchModel search);
     }
 }

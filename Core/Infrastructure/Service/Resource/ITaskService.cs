@@ -12,5 +12,6 @@ namespace Core.Infrastructure.Service.Resource
         IResponse AdminApproveTask(List<int> taskIds);
         IResponse AdminRejectTask(TaskRejectionModel reject);
         IResponse AdminReasignTask(AdminReasignTaskModel reasign);
+        IResponse GetGrouped(TaskSearchModel search);
     }
 }

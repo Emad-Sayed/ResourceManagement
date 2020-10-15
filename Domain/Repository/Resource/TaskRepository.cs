@@ -86,9 +86,9 @@ namespace Domain.Repository.Resource
                 Year = s.First().StartDate.Year,
                 TotalTasks = s.Count(),
                 Pending = s.Count(wh => wh.TaskStateId == 1),
-                Approved = s.Count(wh => wh.TaskStateId == 2),
-                Rejected = s.Count(wh => wh.TaskStateId == 3),
-            });
+                Rejected = s.Count(wh => wh.TaskStateId == 2),
+                Approved = s.Count(wh => wh.TaskStateId == 3),
+            }).OrderBy(or => or.Year).ThenBy(or => or.Month);
             return dataGroupped;
         }
     }

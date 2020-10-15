@@ -34,7 +34,7 @@ namespace Proemcs.RM.API.DependencyInjection
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Reservation", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "RM", Version = "v1" });
             });
         }
         public static void MapperInjection(this IServiceCollection service)

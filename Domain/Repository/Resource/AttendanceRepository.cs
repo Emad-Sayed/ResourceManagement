@@ -67,7 +67,7 @@ namespace Domain.Repository.Resource
                 TotalAttendances = s.Count(),
                 WorkedHours = s.Sum(wh => wh.WorkedHours),
                 NetPayment = s.Sum(wh => wh.NetPayment),
-            });
+            }).OrderBy(or => or.Year).ThenBy(or => or.Month);
             return dataGroupped;
         }
 

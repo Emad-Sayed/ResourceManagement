@@ -23,6 +23,7 @@ namespace Domain.Repository.Resource
                 (String.IsNullOrEmpty(search.keyWord) || t.Name.Contains(search.keyWord) || t.Description.Contains(search.keyWord)) &&
                 (search.TasksIds == null || search.TasksIds.Count == 0 || search.TasksIds.Contains(t.Id)) &&
                 (search.TypeIds == null || search.TypeIds.Count == 0 || search.TypeIds.Contains(t.TypeId)) &&
+                (search.TaskStateIds == null || search.TaskStateIds.Count == 0 || search.TaskStateIds.Contains(t.TaskStateId)) &&
                 (search.ResourcesIds == null || search.ResourcesIds.Count == 0 || search.ResourcesIds.Contains(t.ResourceId)) &&
                 (search.StateIds == null || search.StateIds.Count == 0 || search.StateIds.Contains(t.TaskStateId)) &&
                 (search.SpecificDate == null || (t.StartDate.Value.Date <= search.SpecificDate.Value.Date && search.SpecificDate.Value.Date < t.EndDate.Value.Date)) &&
@@ -56,6 +57,7 @@ namespace Domain.Repository.Resource
                 (String.IsNullOrEmpty(search.keyWord) || t.Name.Contains(search.keyWord) || t.Description.Contains(search.keyWord)) &&
                 (search.TasksIds == null || search.TasksIds.Count == 0 || search.TasksIds.Contains(t.Id)) &&
                 (search.TypeIds == null || search.TypeIds.Count == 0 || search.TypeIds.Contains(t.TypeId)) &&
+                (search.TaskStateIds == null || search.TaskStateIds.Count == 0 || search.TaskStateIds.Contains(t.TaskStateId)) &&
                 (search.ResourcesIds == null || search.ResourcesIds.Count == 0 || search.ResourcesIds.Contains(t.ResourceId)) &&
                 (search.StateIds == null || search.StateIds.Count == 0 || search.StateIds.Contains(t.TaskStateId)) &&
                 (search.SpecificDate == null || (t.StartDate.Value.Date <= search.SpecificDate.Value.Date && search.SpecificDate.Value.Date < t.EndDate.Value.Date)) &&

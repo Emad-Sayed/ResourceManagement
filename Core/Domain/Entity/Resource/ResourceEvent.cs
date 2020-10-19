@@ -8,9 +8,8 @@ namespace Core.Domain.Entity.Resource
     public class ResourceEvent : BaseEntity
     {
         public string Name { get; set; }
-        public DateTime Day { get; set; }
-        public TimeSpan From { get; set; }
-        public TimeSpan End { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
         public string Location { get; set; }
     }
 }

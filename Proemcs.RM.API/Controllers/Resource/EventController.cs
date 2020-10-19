@@ -25,10 +25,10 @@ namespace Proemcs.RM.API.Controllers.Resource
             var Rs = service.Create(model, User.GetUserId());
             return Ok(Rs);
         }
-        [HttpGet("GetByDay")]
-        public ActionResult GetByDay([FromQuery] DateTime day)
+        [HttpGet("GetResourceEvents")]
+        public ActionResult GetResourceEvents()
         {
-            var Rs = service.GetByDate(day, User.GetUserId());
+            var Rs = service.GetMyEvenets(User.GetUserId());
             if (Rs.status)
                 return Ok(Rs);
             return NotFound(Rs);

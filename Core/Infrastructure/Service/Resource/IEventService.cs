@@ -8,6 +8,6 @@ namespace Core.Infrastructure.Service.Resource
 {
     public interface IEventService : IService<BaseSearch,EventCreateModel>
     {
-        IResponse GetByDate(DateTime date,int VisitorId);
+        IResponse GetMyEvenets(int VisitorId);
     }
 }

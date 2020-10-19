@@ -21,7 +21,7 @@ namespace Domain.Repository.Resource
         {
             var query = Context.Attendances.Include(t => t.CreatedBy).Where(t =>
                 (String.IsNullOrEmpty(search.keyWord) || t.CreatedBy.UserName.Contains(search.keyWord) || t.CreatedBy.Email.Contains(search.keyWord)) &&
-                (t.Approved == search.Approved) && (t.EndWorkDate != null) &&
+                (t.Approved == search.Approved) &&
                 (search.ResourceIds == null || search.ResourceIds.Count == 0 || search.ResourceIds.Contains(t.CreatedById.Value)) &&
                 (search.attendanceIds == null || search.attendanceIds.Count == 0 || search.attendanceIds.Contains(t.Id)) &&
                 (search.startDate == null || t.StartWorkDate.Date > search.startDate.Value.Date) &&

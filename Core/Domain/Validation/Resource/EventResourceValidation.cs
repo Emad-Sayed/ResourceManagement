@@ -11,9 +11,8 @@ namespace Core.Domain.Validation.Resource
         public EventResourceValidation()
         {
             RuleFor(x => x.End).Must((Model, End) => {
-                TimeSpan toStartTime = TimeSpan.Parse(Model.Start);
-                TimeSpan toEndTime = TimeSpan.Parse(End);
-                return toEndTime > toStartTime;
+
+                return  End> Model.Start;
             }).WithMessage("End Time must be larger than Start Time");
         }
     }

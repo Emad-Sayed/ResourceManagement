@@ -26,16 +26,13 @@ namespace Infrastructure.Services.Resource
 
         public IResponse Create(EventCreateModel model, int LoggedUser)
         {
-            var StartTime = TimeSpan.Parse(model.Start);
-            var EndTime = TimeSpan.Parse(model.End);
             UOW.Events.Add(new ResourceEvent
             {
                 CreatedById = LoggedUser,
-                Day = model.Day,
+                Start = model.Start,
+                End = model.End,
                 Name = model.Name,
                 Location = model.Location,
-                From = StartTime,
-                End = EndTime
             });
             UOW.Compelete();
             return response;
@@ -51,9 +48,9 @@ namespace Infrastructure.Services.Resource
             throw new NotImplementedException();
         }
 
-        public IResponse GetByDate(DateTime date, int VisitorId)
+        public IResponse GetMyEvenets(int ResourceId)
         {
-            var data = UOW.Events.Find(e => e.Day.Date == date.Date);
+            var data = UOW.Events.Find(e => e.CreatedById == ResourceId);
             if (data.ToList().Count == 0)
                 response.status = false;
             else

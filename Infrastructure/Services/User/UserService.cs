@@ -48,26 +48,16 @@ namespace Infrastructure.Services.User
             return response;
         }
 
-        public async Task<IResponse> Update(UserUpdateModel user)
+        public async Task<IResponse> Update(UserUpdateModel user, int LoggedId)
         {
-            var selectedUser = await userManager.FindByIdAsync(user.Id+"");
+            var selectedUser = await userManager.FindByIdAsync(LoggedId + "");
             if (selectedUser != null)
             {
                 selectedUser.UserName = user.UserName;
                 selectedUser.Email = user.Email;
                 selectedUser.EmailConfirmed = true;
-                selectedUser.CostPerHour = user.CostPerHour;
                 selectedUser.JobTitle = user.JobTitle;
-                var result = await userManager.UpdateAsync(selectedUser);
-                if (String.IsNullOrEmpty(user.Role))
-                {
-                    var PreviousRole = await userManager.GetRolesAsync(selectedUser);
-                    if (PreviousRole.Count != 0)
-                    {
-                        await userManager.RemoveFromRoleAsync(selectedUser, PreviousRole.FirstOrDefault());
-                    }
-                    await userManager.AddToRoleAsync(selectedUser, user.Role);
-                }
+                await userManager.UpdateAsync(selectedUser);
             }
             else
             {
@@ -110,5 +100,38 @@ namespace Infrastructure.Services.User
             return response;
         }
 
+        public async Task<IResponse> UpdateResource(AdminUpdateUser user)
+        {
+            var selectedUser = await userManager.FindByIdAsync(user.Id + "");
+            if (selectedUser != null)
+            {
+                selectedUser.UserName = user.UserName;
+                selectedUser.Email = user.Email;
+                selectedUser.EmailConfirmed = true;
+                selectedUser.JobTitle = user.JobTitle;
+                selectedUser.CostPerHour = user.CostPerHour;
+                if (!String.IsNullOrEmpty(user.Password))
+                {
+                    await userManager.RemovePasswordAsync(selectedUser);
+                    await userManager.AddPasswordAsync(selectedUser, user.Password);
+                }
+                var result = await userManager.UpdateAsync(selectedUser);
+                //if (String.IsNullOrEmpty(user.Role))
+                //{
+                //    var PreviousRole = await userManager.GetRolesAsync(selectedUser);
+                //    if (PreviousRole.Count != 0)
+                //    {
+                //        await userManager.RemoveFromRoleAsync(selectedUser, PreviousRole.FirstOrDefault());
+                //    }
+                //    await userManager.AddToRoleAsync(selectedUser, user.Role);
+                //}
+            }
+            else
+            {
+                response.status = false;
+                response.error_EN = "user doesn't exist";
+            }
+            return response;
+        }
     }
 }

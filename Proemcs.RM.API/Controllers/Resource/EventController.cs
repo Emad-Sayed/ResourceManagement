@@ -20,7 +20,7 @@ namespace Proemcs.RM.API.Controllers.Resource
             service = service_;
         }
         [HttpPost]
-        public ActionResult Create(EventCreateModel model)
+        public ActionResult Create([FromBody] EventCreateModel model)
         {
             var Rs = service.Create(model, User.GetUserId());
             return Ok(Rs);
@@ -29,9 +29,7 @@ namespace Proemcs.RM.API.Controllers.Resource
         public ActionResult GetResourceEvents()
         {
             var Rs = service.GetMyEvenets(User.GetUserId());
-            if (Rs.status)
-                return Ok(Rs);
-            return NotFound(Rs);
+            return Ok(Rs);
         }
     }
 }

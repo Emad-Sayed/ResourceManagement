@@ -4,14 +4,13 @@ using System.Text;
 
 namespace Core.Domain.ViewModel.Access
 {
-    public class UserViewModel
+    public class AdminUpdateUser
     {
         public int Id { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
         public string JobTitle { get; set; }
         public float CostPerHour { get; set; }
-        public string Role { get; set; }
-        public DateTime LastLogged { get; set; }
+        public string Password { get; set; }
     }
 }

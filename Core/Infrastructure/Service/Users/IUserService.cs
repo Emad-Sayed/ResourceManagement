@@ -10,7 +10,8 @@ namespace Core.Infrastructure.Service.Users
     public interface IUserService
     {
         Task<IResponse> AddUserWithRole(RegisterationModel user, string Role);
-        Task<IResponse> Update(UserUpdateModel user);
+        Task<IResponse> Update(UserUpdateModel user, int id);
+        Task<IResponse> UpdateResource(AdminUpdateUser user);
         IResponse GetUsers(UserSeachModel search);
         Task<IResponse> ChangePassword(UserChangePasswordModel changePassword,int loggedInUser);
 

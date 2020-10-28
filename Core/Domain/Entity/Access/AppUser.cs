@@ -9,5 +9,6 @@ namespace Core.Domain.Entity.Access
     {
         public float CostPerHour { get; set; }
         public string JobTitle { get; set; }
+        public DateTime? LastLogged { get; set; }
     }
 }

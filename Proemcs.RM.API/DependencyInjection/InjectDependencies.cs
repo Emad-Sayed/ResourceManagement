@@ -69,6 +69,7 @@ namespace Proemcs.RM.API.DependencyInjection
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireDigit = false;
                 options.User.RequireUniqueEmail = true;
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+/  ";
             })
                 .AddEntityFrameworkStores<AppDbContext>();
         }

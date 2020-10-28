@@ -33,6 +33,7 @@ namespace Domain.Repository.User
                             Email = user.Email,
                             JobTitle = user.JobTitle,
                             CostPerHour = user.CostPerHour,
+                            LastLogged = user.LastLogged.Value,
                             Role = role.Name,
                         };
             var count = query.Count();

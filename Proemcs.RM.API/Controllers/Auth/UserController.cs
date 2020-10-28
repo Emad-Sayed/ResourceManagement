@@ -46,7 +46,15 @@ namespace Proemcs.RM.API.Controllers.Auth
         [HttpPut]
         public async Task<ActionResult> Update(UserUpdateModel user)
         {
-            var response = await service.Update(user);
+            var response = await service.Update(user, User.GetUserId());
+            if (response.status == true)
+                return Ok(response);
+            return NotFound(response);
+        }
+        [HttpPut("UpdateResource")]
+        public async Task<ActionResult> UpdateResource(AdminUpdateUser user)
+        {
+            var response = await service.UpdateResource(user);
             if (response.status == true)
                 return Ok(response);
             return NotFound(response);

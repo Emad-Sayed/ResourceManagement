@@ -32,6 +32,8 @@ namespace Proemcs.RM.API.Controllers.Auth
             var selectedUser = await UserExists(user);
             if (selectedUser != null)
             {
+                selectedUser.LastLogged = DateTime.Now;
+                await _userManager.UpdateAsync(selectedUser);
                 int timeExpiration = user.rememberMe ? 30 : 1;
                 var (token, roles) = await GenerateToken(selectedUser, timeExpiration);
                 return Ok(new
@@ -61,6 +63,7 @@ namespace Proemcs.RM.API.Controllers.Auth
             {
                 new Claim("Id",Authuser.Id+""),
                 new Claim("Name",Authuser.UserName+""),
+                new Claim("JobTitle",Authuser.JobTitle+""),
                 new Claim(JwtRegisteredClaimNames.Email,Authuser.Email),
                 new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
             };

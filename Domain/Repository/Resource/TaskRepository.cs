@@ -19,7 +19,7 @@ namespace Domain.Repository.Resource
 
         public (IEnumerable<TaskViewModel>, int) TasksFilter(TaskSearchModel search)
         {
-            var query = Context.Tasks.Include(t => t.Type).Where(t =>
+                var query = Context.Tasks.Include(t => t.Type).Where(t =>
                 (String.IsNullOrEmpty(search.keyWord) || t.Name.Contains(search.keyWord) || t.Description.Contains(search.keyWord)) &&
                 (search.TasksIds == null || search.TasksIds.Count == 0 || search.TasksIds.Contains(t.Id)) &&
                 (search.TypeIds == null || search.TypeIds.Count == 0 || search.TypeIds.Contains(t.TypeId)) &&
@@ -28,7 +28,8 @@ namespace Domain.Repository.Resource
                 (search.StateIds == null || search.StateIds.Count == 0 || search.StateIds.Contains(t.TaskStateId)) &&
                 (search.SpecificDate == null || (t.StartDate.Value.Date <= search.SpecificDate.Value.Date && search.SpecificDate.Value.Date < t.EndDate.Value.Date)) &&
                 (search.StartDate == null || t.StartDate.Value > search.StartDate) &&
-                (search.EndDate == null || t.EndDate.Value < search.EndDate))
+                (search.EndDate == null || t.EndDate.Value < search.EndDate)&&
+                (search.ApproveByMe == null || t.ApprovedByMe))
                 .Select(t => new TaskViewModel
                 {
                     TaskId = t.Id,
@@ -62,7 +63,8 @@ namespace Domain.Repository.Resource
                 (search.StateIds == null || search.StateIds.Count == 0 || search.StateIds.Contains(t.TaskStateId)) &&
                 (search.SpecificDate == null || (t.StartDate.Value.Date <= search.SpecificDate.Value.Date && search.SpecificDate.Value.Date < t.EndDate.Value.Date)) &&
                 (search.StartDate == null || t.StartDate.Value > search.StartDate) &&
-                (search.EndDate == null || t.EndDate.Value < search.EndDate))
+                (search.EndDate == null || t.EndDate.Value < search.EndDate)&&
+                (search.ApproveByMe == null || t.ApprovedByMe))
                 .Select(t => new TaskViewModel
                 {
                     TaskId = t.Id,

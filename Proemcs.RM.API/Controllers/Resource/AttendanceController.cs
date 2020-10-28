@@ -35,8 +35,6 @@ namespace Proemcs.RM.API.Controllers.Resource
         public ActionResult GetToDayAttendance()
         {
             var Rs = service.GetToDayAttendance(User.GetUserId());
-            if (!Rs.status)
-                return BadRequest(Rs);
             return Ok(Rs);
         }
         [HttpGet("AttendanceFilter")]

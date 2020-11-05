@@ -12,6 +12,7 @@ namespace Core.Domain.ViewModel.Access
         public string JobTitle { get; set; }
         public float CostPerHour { get; set; }
         public string Role { get; set; }
+        public string Photo { get; set; }
         public DateTime LastLogged { get; set; }
     }
 }

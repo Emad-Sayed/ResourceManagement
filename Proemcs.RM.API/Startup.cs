@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Domain.Mapper;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Proemcs.RM.API.DependencyInjection;
@@ -50,7 +52,12 @@ namespace Proemcs.RM.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(env.ContentRootPath, "wwwroot")),
+                RequestPath = "/wwwroot"
+            });
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));

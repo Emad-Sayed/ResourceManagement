@@ -12,5 +12,6 @@ namespace Core.Domain.ViewModel.Access
         public string JobTitle { get; set; }
         public float CostPerHour { get; set; }
         public string Password { get; set; }
+        public string Base64 { get; set; }
     }
 }

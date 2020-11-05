@@ -34,6 +34,7 @@ namespace Domain.Repository.User
                             JobTitle = user.JobTitle,
                             CostPerHour = user.CostPerHour,
                             LastLogged = user.LastLogged.Value,
+                            Photo = user.Photo,
                             Role = role.Name,
                         };
             var count = query.Count();

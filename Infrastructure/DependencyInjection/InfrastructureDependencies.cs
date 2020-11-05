@@ -1,6 +1,8 @@
 ﻿using Core.Domain.ViewModel;
+using Core.Infrastructure.Helper;
 using Core.Infrastructure.Service.Resource;
 using Core.Infrastructure.Service.Users;
+using Infrastructure.Helper;
 using Infrastructure.Services.Resource;
 using Infrastructure.Services.User;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +21,7 @@ namespace Infrastructure.DependencyInjection
             services.AddTransient<ITaskService, TaskService>();
             services.AddTransient<IAttendanceService, AttendanceService>();
             services.AddTransient<IEventService, EvnetService>();
+            services.AddTransient<IFileHelper, FileHelper>();
         }
     }
 }

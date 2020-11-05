@@ -2,6 +2,7 @@
 using Core.Domain.UOW;
 using Core.Domain.ViewModel;
 using Core.Domain.ViewModel.Access;
+using Core.Infrastructure.Helper;
 using Core.Infrastructure.Service.Users;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -17,15 +18,17 @@ namespace Infrastructure.Services.User
         private UserManager<AppUser> userManager;
         public readonly IUOW UOW;
         public readonly IResponse response;
-        public UserService(IUOW uow_, IResponse response_, UserManager<AppUser> userManager_)
+        public readonly IFileHelper file;
+        public UserService(IUOW uow_, IResponse response_, UserManager<AppUser> userManager_, IFileHelper file_)
         {
             userManager = userManager_;
             UOW = uow_;
             response = response_;
+            file = file_;
         }
 
 
-        public async Task<IResponse> AddUserWithRole(RegisterationModel user, string Role)
+        public async Task<IResponse> AddUserWithRole(RegisterationModel user, string Role, string rootPath)
         {
             AppUser newAppUser = new AppUser
             {
@@ -39,6 +42,11 @@ namespace Infrastructure.Services.User
             if (result.Succeeded)
             {
                 await userManager.AddToRoleAsync(newAppUser, Role);
+                if (!String.IsNullOrEmpty(user.Base64))
+                {
+                    newAppUser.Photo = file.SaveImage(user.Base64, newAppUser.Id + "", "Images/Users", rootPath);
+                    await userManager.UpdateAsync(newAppUser);
+                }
             }
             else
             {
@@ -100,7 +108,7 @@ namespace Infrastructure.Services.User
             return response;
         }
 
-        public async Task<IResponse> UpdateResource(AdminUpdateUser user)
+        public async Task<IResponse> UpdateResource(AdminUpdateUser user, string rootPath)
         {
             var selectedUser = await userManager.FindByIdAsync(user.Id + "");
             if (selectedUser != null)
@@ -114,6 +122,10 @@ namespace Infrastructure.Services.User
                 {
                     await userManager.RemovePasswordAsync(selectedUser);
                     await userManager.AddPasswordAsync(selectedUser, user.Password);
+                }
+                if (!String.IsNullOrEmpty(user.Base64))
+                {
+                    selectedUser.Photo = file.SaveImage(user.Base64, selectedUser.Id + "", "Images/Users", rootPath);
                 }
                 var result = await userManager.UpdateAsync(selectedUser);
                 //if (String.IsNullOrEmpty(user.Role))
@@ -130,6 +142,17 @@ namespace Infrastructure.Services.User
             {
                 response.status = false;
                 response.error_EN = "user doesn't exist";
+            }
+            return response;
+        }
+        public async Task<IResponse> DeleteUserImage(int userId, string rootPath)
+        {
+            var selectedUser = await userManager.FindByIdAsync(userId + "");
+            if (selectedUser != null)
+            {
+                file.DeleteImage("wwwroot/Images/Users/" + userId+".jpg");
+                selectedUser.Photo = null;
+                await userManager.UpdateAsync(selectedUser);
             }
             return response;
         }

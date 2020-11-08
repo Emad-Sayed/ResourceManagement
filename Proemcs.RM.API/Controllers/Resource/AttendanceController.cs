@@ -26,9 +26,9 @@ namespace Proemcs.RM.API.Controllers.Resource
             return Ok(Rs);
         }
         [HttpPost("EndWork")]
-        public ActionResult EndWork()
+        public ActionResult EndWork([FromBody]AttendanceEndWork attendance)
         {
-            var Rs = service.EndWork(User.GetUserId());
+            var Rs = service.EndWork(attendance,User.GetUserId());
             return Ok(Rs);
         }
         [HttpGet("GetToDayAttendance")]
@@ -53,6 +53,12 @@ namespace Proemcs.RM.API.Controllers.Resource
         public ActionResult GetAdminApprove(List<int> ids)
         {
             var Rs = service.GetAdminApprove(ids);
+            return Ok(Rs);
+        }
+        [HttpPost("GetAdminRejection")]
+        public ActionResult GetAdminRejection(List<int> ids)
+        {
+            var Rs = service.GetAdminReject(ids);
             return Ok(Rs);
         }
         [HttpGet("GetMyAttendance")]

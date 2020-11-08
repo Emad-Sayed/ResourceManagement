@@ -50,12 +50,12 @@ namespace Infrastructure.Services.Resource
             }
             else
             {
-                var (data,rows) = UOW.Attendances.AttendanceFilter(new AttendanceSearchModel {attendanceIds=new List<int> {selectedAttendance.Id} });
+                var (data, rows) = UOW.Attendances.AttendanceFilter(new AttendanceSearchModel { attendanceIds = new List<int> { selectedAttendance.Id } });
                 response.data = data;
             }
             return response;
         }
-        public IResponse EndWork(int resourceId)
+        public IResponse EndWork(AttendanceEndWork attendance, int resourceId)
         {
             var selectedAttendance = UOW.Attendances.SingleOrDefault(r => r.CreatedById == resourceId && r.EndWorkDate == null);
             if (selectedAttendance == null)
@@ -64,6 +64,8 @@ namespace Infrastructure.Services.Resource
                 return response;
             }
             selectedAttendance.EndWorkDate = DateTime.Now;
+            selectedAttendance.Comment =  attendance.Comment ?? selectedAttendance.Comment;
+            selectedAttendance.ExceptionHours = attendance.ExceptionHours;
             TimeSpan difference = selectedAttendance.EndWorkDate.Value - selectedAttendance.StartWorkDate;
             selectedAttendance.WorkedHours = difference.TotalHours;
             UOW.Compelete();
@@ -79,15 +81,33 @@ namespace Infrastructure.Services.Resource
                 return response;
             }
             TimeSpan Difference = DateTime.Now - selectedAttendance.StartWorkDate;
-            response.data = new {Start=selectedAttendance.StartWorkDate,Hours=Difference.Hours,Minues=Difference.Minutes};
+            response.data = new { Start = selectedAttendance.StartWorkDate, Hours = Difference.Hours, Minues = Difference.Minutes };
             return response;
         }
         public IResponse GetAdminApprove(List<int> ids)
         {
-            foreach(int id in ids)
+            foreach (int id in ids)
             {
                 var selectedAttendance = UOW.Attendances.SingleOrDefault(a => a.Id == id);
                 selectedAttendance.Approved = true;
+            }
+            UOW.Compelete();
+            return response;
+        }
+        public IResponse GetAdminExceptionApprove(int id)
+        {
+            var selectedAttendance = UOW.Attendances.SingleOrDefault(a => a.Id == id);
+            selectedAttendance.WorkedHours += selectedAttendance.ExceptionHours;
+            selectedAttendance.Approved = true;
+            UOW.Compelete();
+            return response;
+        }
+        public IResponse GetAdminReject(List<int> ids)
+        {
+            foreach (int id in ids)
+            {
+                var selectedAttendance = UOW.Attendances.SingleOrDefault(a => a.Id == id);
+                selectedAttendance.Approved = false;
             }
             UOW.Compelete();
             return response;

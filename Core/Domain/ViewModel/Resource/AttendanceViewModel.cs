@@ -12,7 +12,11 @@ namespace Core.Domain.ViewModel.Resource
         public int ResourceId { get; set; }
         public string ResourceName { get; set; }
         public double WorkedHours { get; set; }
+        public double OverTime { get; set; }
+        public double OverTimePayment { get; set; }
         public double NetPayment { get; set; }
+        public string Comment { get; set; }
+        public int ExceptionHours { get; set; }
 
     }
 }

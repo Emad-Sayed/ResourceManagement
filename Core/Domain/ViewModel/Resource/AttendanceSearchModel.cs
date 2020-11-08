@@ -6,10 +6,10 @@ namespace Core.Domain.ViewModel.Resource
 {
     public class AttendanceSearchModel : BaseSearch
     {
-        public List<int> attendanceIds { get; set; } 
+        public List<int> attendanceIds { get; set; }
         public DateTime? startDate { get; set; }
         public DateTime? endDate { get; set; }
         public List<int> ResourceIds { get; set; }
-        public bool Approved { get; set; } = false;
+        public bool? Approved { get; set; } = null;
     }
 }

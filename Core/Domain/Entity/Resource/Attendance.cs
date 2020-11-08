@@ -9,6 +9,8 @@ namespace Core.Domain.Entity.Resource
         public DateTime StartWorkDate { get; set; }
         public DateTime? EndWorkDate { get; set; }
         public double WorkedHours { get; set; } = 0;
-        public bool Approved { get; set; } = false;
+        public int ExceptionHours { get; set; } = 0;
+        public bool? Approved { get; set; } 
+        public string Comment { get; set; } 
     }
 }

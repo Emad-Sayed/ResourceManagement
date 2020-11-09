@@ -24,8 +24,8 @@ namespace Domain.Repository.Resource
                 (t.Approved == search.Approved) &&
                 (search.ResourceIds == null || search.ResourceIds.Count == 0 || search.ResourceIds.Contains(t.CreatedById.Value)) &&
                 (search.attendanceIds == null || search.attendanceIds.Count == 0 || search.attendanceIds.Contains(t.Id)) &&
-                (search.startDate == null || t.StartWorkDate.Date > search.startDate.Value.Date) &&
-                (search.endDate == null || t.EndWorkDate.Value.Date > search.endDate.Value.Date))
+                (search.startDate == null || t.StartWorkDate.Date >= search.startDate.Value.Date) &&
+                (search.endDate == null || t.EndWorkDate.Value.Date <= search.endDate.Value.Date))
                 .Select(t => new AttendanceViewModel
                 {
                     Id = t.Id,
@@ -52,8 +52,8 @@ namespace Domain.Repository.Resource
                 (t.Approved == true) && (t.EndWorkDate != null) &&
                 (search.ResourceIds == null || search.ResourceIds.Count == 0 || search.ResourceIds.Contains(t.CreatedById.Value)) &&
                 (search.attendanceIds == null || search.attendanceIds.Count == 0 || search.attendanceIds.Contains(t.Id)) &&
-                (search.startDate == null || t.StartWorkDate.Date > search.startDate.Value.Date) &&
-                (search.endDate == null || t.EndWorkDate.Value.Date < search.endDate.Value.Date))
+                (search.startDate == null || t.StartWorkDate.Date >= search.startDate.Value.Date) &&
+                (search.endDate == null || t.EndWorkDate.Value.Date <= search.endDate.Value.Date))
                 .Select(t => new AttendanceViewModel
                 {
                     Id = t.Id,

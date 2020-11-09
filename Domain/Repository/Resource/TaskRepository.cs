@@ -27,8 +27,8 @@ namespace Domain.Repository.Resource
                 (search.ResourcesIds == null || search.ResourcesIds.Count == 0 || search.ResourcesIds.Contains(t.ResourceId)) &&
                 (search.StateIds == null || search.StateIds.Count == 0 || search.StateIds.Contains(t.TaskStateId)) &&
                 (search.SpecificDate == null || (t.StartDate.Value.Date <= search.SpecificDate.Value.Date && search.SpecificDate.Value.Date < t.EndDate.Value.Date)) &&
-                (search.StartDate == null || t.StartDate.Value > search.StartDate) &&
-                (search.EndDate == null || t.EndDate.Value < search.EndDate)&&
+                (search.StartDate == null || t.StartDate.Value >= search.StartDate) &&
+                (search.EndDate == null || t.EndDate.Value <= search.EndDate)&&
                 (search.ApproveByMe == null || t.ApprovedByMe))
                 .Select(t => new TaskViewModel
                 {
@@ -62,8 +62,8 @@ namespace Domain.Repository.Resource
                 (search.ResourcesIds == null || search.ResourcesIds.Count == 0 || search.ResourcesIds.Contains(t.ResourceId)) &&
                 (search.StateIds == null || search.StateIds.Count == 0 || search.StateIds.Contains(t.TaskStateId)) &&
                 (search.SpecificDate == null || (t.StartDate.Value.Date <= search.SpecificDate.Value.Date && search.SpecificDate.Value.Date < t.EndDate.Value.Date)) &&
-                (search.StartDate == null || t.StartDate.Value > search.StartDate) &&
-                (search.EndDate == null || t.EndDate.Value < search.EndDate)&&
+                (search.StartDate == null || t.StartDate.Value >= search.StartDate) &&
+                (search.EndDate == null || t.EndDate.Value <= search.EndDate)&&
                 (search.ApproveByMe == null || t.ApprovedByMe))
                 .Select(t => new TaskViewModel
                 {

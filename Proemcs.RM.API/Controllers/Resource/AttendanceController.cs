@@ -61,6 +61,12 @@ namespace Proemcs.RM.API.Controllers.Resource
             var Rs = service.GetAdminReject(ids);
             return Ok(Rs);
         }
+        [HttpPost("GetAdminExceptionApprove")]
+        public ActionResult GetAdminRejection(int ids)
+        {
+            var Rs = service.GetAdminExceptionApprove(ids);
+            return Ok(Rs);
+        }
         [HttpGet("GetMyAttendance")]
         public ActionResult GetMyAttendance([FromQuery] AttendanceSearchModel search)
         {
